@@ -1,0 +1,59 @@
+﻿<Window x:Class="worker_manager.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:worker_manager.ViewModel"
+        xmlns:local1="clr-namespace:worker_manager.Models"
+        mc:Ignorable="d"
+        Title="Інформація про співробітників" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel></vm:MainViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <local1:StatusTemplateSelector x:Key="status">
+            <local1:StatusTemplateSelector.ExitChanget>
+                <DataTemplate>
+                    <Grid Background="Red">
+                        <TextBlock>The emploee does`t work</TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </local1:StatusTemplateSelector.ExitChanget>
+            <local1:StatusTemplateSelector.InputCanget>
+                <DataTemplate>
+                    <Grid Background="Green">
+                        <TextBlock>The Emploee go to work</TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </local1:StatusTemplateSelector.InputCanget>
+    </local1:StatusTemplateSelector>
+        
+    </Window.Resources>
+    <StackPanel>
+        <StackPanel>
+            <Menu>
+                <MenuItem Header="Add"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Edit"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="All Delete"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Find"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Exit"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Statistics"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Import"  Background="Gold" Margin="10"></MenuItem>
+                <MenuItem Header="Export"  Background="Gold" Margin="10"></MenuItem>
+            </Menu>
+        </StackPanel>
+        
+        <Grid>
+            <DataGrid AutoGenerateColumns="true"
+                  ItemsSource="{Binding globalPeople}"
+                  CanUserAddRows="True"
+                  MinColumnWidth="60"
+                  RowDetailsTemplateSelector="{StaticResource status}"
+                  SelectedItem="{Binding SelectedString}">
+
+            </DataGrid>
+            
+        </Grid>
+        
+    </StackPanel>
+</Window>
